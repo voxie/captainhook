@@ -20,6 +20,7 @@ class WebhookEventsController extends Controller
     /**
      * Get all of the available webhook events.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return Response
      */
     public function all(Request $request)
