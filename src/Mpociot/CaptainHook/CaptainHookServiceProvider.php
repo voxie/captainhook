@@ -208,8 +208,9 @@ class CaptainHookServiceProvider extends ServiceProvider
     /**
      * Event listener.
      *
-     * @param $eventName
-     * @param $eventData
+     * @param  string $eventName
+     * @param  array  $eventData
+     * @return void
      */
     public function handleEvent($eventName, $eventData)
     {
