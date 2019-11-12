@@ -5,8 +5,9 @@ namespace Mpociot\CaptainHook\Tests;
 use Mockery as m;
 use Mpociot\CaptainHook\Webhook;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Schema;
 
 class CaptainHookTest extends TestCase
 {
@@ -122,8 +123,7 @@ class CaptainHookTest extends TestCase
         $provider->setClient($client);
         $this->app->instance(GuzzleHttp\Client::class, $client);
 
-        // Trigger eloquent event
-        \Event::fire(new TestEvent($model));
+        Event::fire(new TestEvent($model));
     }
 
     public function testUsesCustomTransformMethod()
@@ -157,8 +157,7 @@ class CaptainHookTest extends TestCase
         $provider->setClient($client);
         $this->app->instance(GuzzleHttp\Client::class, $client);
 
-        // Trigger eloquent event
-        \Event::fire(new TestEvent($model));
+        Event::fire(new TestEvent($model));
     }
 
     public function testTransformerReceivesWebhook()
@@ -193,8 +192,7 @@ class CaptainHookTest extends TestCase
         $provider->setClient($client);
         $this->app->instance(GuzzleHttp\Client::class, $client);
 
-        // Trigger eloquent event
-        \Event::fire(new TestEvent($model));
+        Event::fire(new TestEvent($model));
     }
 
     public function testCanUseCallbackAsTransformer()
@@ -226,8 +224,7 @@ class CaptainHookTest extends TestCase
         $provider->setClient($client);
         $this->app->instance(GuzzleHttp\Client::class, $client);
 
-        // Trigger eloquent event
-        \Event::fire(new TestEvent($model));
+        Event::fire(new TestEvent($model));
     }
 
     public function testCanUseCallbackWithDefaultMethodAsTransformer()
@@ -259,8 +256,7 @@ class CaptainHookTest extends TestCase
         $provider->setClient($client);
         $this->app->instance(GuzzleHttp\Client::class, $client);
 
-        // Trigger eloquent event
-        \Event::fire(new TestEvent($model));
+        Event::fire(new TestEvent($model));
     }
 
     public function testInvalidTransformerThrowsException()
@@ -283,7 +279,7 @@ class CaptainHookTest extends TestCase
 
         $this->setExpectedException(\ReflectionException::class, 'Class IDontExist does not exist');
 
-        \Event::fire(new TestEvent($model));
+        Event::fire(new TestEvent($model));
     }
 
     public function testUsesWebhooksFromCache()
