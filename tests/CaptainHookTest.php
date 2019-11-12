@@ -386,6 +386,7 @@ class CaptainHookTest extends TestCase
 
 class TestModel extends \Illuminate\Database\Eloquent\Model
 {
+    protected $table = 'test_models';
     protected $fillable = ['name'];
 }
 

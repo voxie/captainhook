@@ -300,5 +300,6 @@ class LogTest extends TestCase
 
 class LogTestModel extends \Illuminate\Database\Eloquent\Model
 {
+    protected $table = 'webhook_logs';
     protected $fillable = ['name'];
 }
