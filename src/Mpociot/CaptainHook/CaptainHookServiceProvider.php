@@ -185,9 +185,7 @@ class CaptainHookServiceProvider extends ServiceProvider
     public function setWebhooks($webhooks)
     {
         $this->webhooks = $webhooks;
-        $this->getCache()->rememberForever(Webhook::CACHE_KEY, function () {
-            return $this->webhooks;
-        });
+        $this->getCache()->forever(Webhook::CACHE_KEY, $webhooks);
     }
 
     /**
