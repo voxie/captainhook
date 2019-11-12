@@ -21,13 +21,6 @@ class CaptainHookTest extends TestCase
         m::close();
     }
 
-    protected function mockConfig($m, $configOption, $return)
-    {
-        return $m->shouldReceive('get')
-            ->with($configOption)
-            ->andReturn($return);
-    }
-
     /**
      * Define environment setup.
      *
@@ -36,6 +29,8 @@ class CaptainHookTest extends TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
+        parent::getEnvironmentSetUp($app);
+
         // Setup default database to use sqlite :memory:
         $app['config']->set('captain_hook.transformer', function ($eventData, $webhook) {
             return json_encode($eventData);
@@ -51,6 +46,13 @@ class CaptainHookTest extends TestCase
             $table->timestamps();
             $table->softDeletes();
         });
+    }
+
+    protected function mockConfig($m, $configOption, $return)
+    {
+        return $m->shouldReceive('get')
+            ->with($configOption)
+            ->andReturn($return);
     }
 
     public function testEloquentEventListenerGetCalled()

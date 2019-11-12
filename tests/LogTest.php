@@ -20,13 +20,6 @@ class LogTest extends TestCase
         m::close();
     }
 
-    protected function mockConfig($m, $configOption, $return)
-    {
-        return $m->shouldReceive('get')
-            ->with($configOption)
-            ->andReturn($return);
-    }
-
     /**
      * Define environment setup.
      *
@@ -35,6 +28,8 @@ class LogTest extends TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
+        parent::getEnvironmentSetUp($app);
+
         // Setup default database to use sqlite :memory:
         $app['config']->set('captain_hook.transformer', function ($eventData) {
             return json_encode($eventData);
@@ -51,6 +46,13 @@ class LogTest extends TestCase
             $table->timestamps();
             $table->softDeletes();
         });
+    }
+
+    protected function mockConfig($m, $configOption, $return)
+    {
+        return $m->shouldReceive('get')
+            ->with($configOption)
+            ->andReturn($return);
     }
 
     public function testItDoesNotLogTriggeredWebhooks()
