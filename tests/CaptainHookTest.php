@@ -2,7 +2,7 @@
 
 namespace Mpociot\CaptainHook\Tests;
 
-use Mockery as m;
+use Mockery;
 use Mpociot\CaptainHook\Webhook;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Event;
@@ -21,7 +21,7 @@ class CaptainHookTest extends TestCase
         parent::tearDown();
 
         Cache::forget(Webhook::CACHE_KEY);
-        m::close();
+        Mockery::close();
     }
 
     /**
@@ -67,16 +67,16 @@ class CaptainHookTest extends TestCase
             ]),
         ]);
 
-        $client = m::mock(\GuzzleHttp\Client::class);
+        $client = Mockery::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->twice();
 
         $client->shouldReceive('post')
-            ->with('http://foo.baz/hook', m::any());
+            ->with('http://foo.baz/hook', Mockery::any());
 
         $client->shouldReceive('post')
-            ->with('http://foo.bar/hook', m::any());
+            ->with('http://foo.bar/hook', Mockery::any());
 
         $this->app->instance(\GuzzleHttp\Client::class, $client);
 
@@ -105,7 +105,7 @@ class CaptainHookTest extends TestCase
 
         // We need to fetch a new instance of the model - just like __wakeup would do
         $checkModel = TestModel::find($model->getKey());
-        $client = m::mock(\GuzzleHttp\Client::class);
+        $client = Mockery::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once()
@@ -139,7 +139,7 @@ class CaptainHookTest extends TestCase
 
         // We need to fetch a new instance of the model - just like __wakeup would do
         $checkModel = TestModel::find($model->getKey());
-        $client = m::mock(\GuzzleHttp\Client::class);
+        $client = Mockery::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once()
@@ -174,7 +174,7 @@ class CaptainHookTest extends TestCase
 
         // We need to fetch a new instance of the model - just like __wakeup would do
         $checkModel = TestModel::find($model->getKey());
-        $client = m::mock(\GuzzleHttp\Client::class);
+        $client = Mockery::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once()
@@ -206,7 +206,7 @@ class CaptainHookTest extends TestCase
 
         // We need to fetch a new instance of the model - just like __wakeup would do
         $checkModel = TestModel::find($model->getKey());
-        $client = m::mock(\GuzzleHttp\Client::class);
+        $client = Mockery::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once()
@@ -238,7 +238,7 @@ class CaptainHookTest extends TestCase
 
         // We need to fetch a new instance of the model - just like __wakeup would do
         $checkModel = TestModel::find($model->getKey());
-        $client = m::mock(\GuzzleHttp\Client::class);
+        $client = Mockery::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once()
@@ -307,16 +307,16 @@ class CaptainHookTest extends TestCase
         $webhook->event = 'eloquent.deleted: TestModel';
         $webhook->save();
 
-        $client = m::mock(\GuzzleHttp\Client::class);
+        $client = Mockery::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->twice();
 
         $client->shouldReceive('post')
-            ->with('http://test.foo/saved', m::any());
+            ->with('http://test.foo/saved', Mockery::any());
 
         $client->shouldReceive('post')
-            ->with('http://test.bar/saved', m::any());
+            ->with('http://test.bar/saved', Mockery::any());
 
         $this->app->instance(\GuzzleHttp\Client::class, $client);
 
@@ -348,17 +348,17 @@ class CaptainHookTest extends TestCase
         $webhook->event = 'eloquent.saved: TestModel';
         $webhook->save();
 
-        $client = m::mock(\GuzzleHttp\Client::class);
+        $client = Mockery::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once();
 
         $client->shouldReceive('post')
-            ->with('http://test.bar/saved', m::any());
+            ->with('http://test.bar/saved', Mockery::any());
 
         $this->app->instance(\GuzzleHttp\Client::class, $client);
 
-        $config = m::mock('stdClass');
+        $config = Mockery::mock('stdClass');
         $config->shouldReceive('get')
             ->with('captain_hook.filter', null)
             ->andReturn(function ($item) {
