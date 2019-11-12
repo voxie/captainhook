@@ -3,7 +3,7 @@
 namespace Mpociot\CaptainHook;
 
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * This file is part of CaptainHook arrrrr.
@@ -14,24 +14,37 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
  * @property string  url
  * @license MIT
  */
-class Webhook extends Eloquent
+class Webhook extends Model
 {
     /**
-     * Cache key to use to store loaded webhooks.
+     * The table associated with the model.
+     *
+     * @var string
      */
-    const CACHE_KEY = 'mpociot.captainhook.hooks';
+    protected $table = 'webhooks';
 
     /**
-     * Make all fields fillable.
+     * The attributes that are mass assignable.
+     *
      * @var array
      */
     public $fillable = ['id', 'url', 'event', 'tenant_id'];
 
     /**
-     * Boot the model
-     * Whenever a new Webhook get's created the cache get's cleared.
+     * Cache key to use to store loaded webhooks.
+     *
+     * @var string
      */
-    public static function boot()
+    const CACHE_KEY = 'mpociot.captainhook.hooks';
+
+    /**
+     * Boot the model.
+     *
+     * Whenever a new Webhook get's created the cache gets cleared.
+     *
+     * @return void
+     */
+    protected static function boot()
     {
         parent::boot();
 
@@ -65,6 +78,7 @@ class Webhook extends Eloquent
      */
     public function lastLog()
     {
-        return $this->hasOne(WebhookLog::class)->orderBy('created_at', 'DESC');
+        return $this->hasOne(WebhookLog::class)
+            ->orderBy('created_at', 'DESC');
     }
 }

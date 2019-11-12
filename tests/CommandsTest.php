@@ -1,22 +1,14 @@
 <?php
 
+namespace Mpociot\CaptainHook\Tests;
+
 use Mockery as m;
 use Mpociot\CaptainHook\Commands\AddWebhook;
 use Mpociot\CaptainHook\Commands\DeleteWebhook;
 use Mpociot\CaptainHook\Webhook;
 
-class CommandsTest extends Orchestra\Testbench\TestCase
+class CommandsTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->artisan('migrate', [
-            '--database' => 'testing',
-            '--realpath' => realpath(__DIR__.'/../src/database'),
-        ]);
-    }
-
     public function testCannotAddWebhookWithoutName()
     {
         $cmd = m::mock(AddWebhook::class . '[argument,error]');
@@ -56,14 +48,14 @@ class CommandsTest extends Orchestra\Testbench\TestCase
 
         $this->seeInDatabase('webhooks', [
             'event' => 'TestModelTestModel',
-            'url' => 'http://foo.bar',
+            'url'   => 'http://foo.bar',
         ]);
     }
 
     public function testCannotDeleteWebhookWithWrongID()
     {
         Webhook::create([
-            'url' => 'http://foo.baz',
+            'url'   => 'http://foo.baz',
             'event' => 'DeleteWebhook',
         ]);
         $cmd = m::mock(DeleteWebhook::class . '[argument,error]');
@@ -78,7 +70,7 @@ class CommandsTest extends Orchestra\Testbench\TestCase
         $cmd->handle();
 
         $this->seeInDatabase('webhooks', [
-            'url' => 'http://foo.baz',
+            'url'   => 'http://foo.baz',
             'event' => 'DeleteWebhook',
         ]);
     }
@@ -86,8 +78,8 @@ class CommandsTest extends Orchestra\Testbench\TestCase
     public function testCanDeleteWebhook()
     {
         $webhook = Webhook::create([
-           'url' => 'http://foo.baz',
-           'event' => 'DeleteWebhook',
+            'url'   => 'http://foo.baz',
+            'event' => 'DeleteWebhook',
         ]);
         $cmd = m::mock(DeleteWebhook::class . '[argument,info]');
 
@@ -101,7 +93,7 @@ class CommandsTest extends Orchestra\Testbench\TestCase
         $cmd->handle();
 
         $this->notSeeInDatabase('webhooks', [
-            'url' => 'http://foo.baz',
+            'url'   => 'http://foo.baz',
             'event' => 'DeleteWebhook',
         ]);
     }

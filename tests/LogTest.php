@@ -1,13 +1,21 @@
 <?php
 
+namespace Mpociot\CaptainHook\Tests;
+
 use Mockery as m;
 use Mpociot\CaptainHook\Webhook;
 
-class LogTest extends Orchestra\Testbench\TestCase
+class LogTest extends TestCase
 {
-    protected function getPackageProviders($app)
+    /**
+     * Clean up the testing environment before the next test.
+     *
+     * @return void
+     */
+    public function tearDown(): void
     {
-        return ['Mpociot\CaptainHook\CaptainHookServiceProvider'];
+        \Cache::forget(Webhook::CACHE_KEY);
+        m::close();
     }
 
     protected function mockConfig($m, $configOption, $return)
@@ -15,22 +23,6 @@ class LogTest extends Orchestra\Testbench\TestCase
         return $m->shouldReceive('get')
             ->with($configOption)
             ->andReturn($return);
-    }
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->artisan('migrate', [
-            '--database' => 'testing',
-            '--realpath' => realpath(__DIR__.'/../src/database'),
-        ]);
-    }
-
-    public function tearDown(): void
-    {
-        \Cache::forget(Webhook::CACHE_KEY);
-        m::close();
     }
 
     /**

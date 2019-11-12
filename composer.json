@@ -37,7 +37,26 @@
     },
     "autoload": {
         "psr-0": {
-            "Mpociot\\CaptainHook": "src/"
+            "Mpociot\\CaptainHook\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "Mpociot\\CaptainHook\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mpociot\\CaptainHook\\CaptainHookServiceProvider"
+            ]
         }
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Mpociot\CaptainHook\Commands\AddWebhook;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Support\Collection;
 use Mpociot\CaptainHook\Commands\ListWebhooks;
 use Mpociot\CaptainHook\Commands\DeleteWebhook;
 use Mpociot\CaptainHook\Jobs\TriggerWebhooksJob;
@@ -31,6 +32,7 @@ class CaptainHookServiceProvider extends ServiceProvider
 
     /**
      * All registered webhooks.
+     *
      * @var array
      */
     protected $webhooks = [];
@@ -56,18 +58,22 @@ class CaptainHookServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->client = new Client();
-        $this->cache = app('Illuminate\Contracts\Cache\Repository');
-        $this->config = app('Illuminate\Contracts\Config\Repository');
-        $this->publishMigration();
-        $this->publishConfig();
-        $this->publishSparkResources();
+        $this->cache = $this->app('Illuminate\Contracts\Cache\Repository');
+        $this->config = $this->app('Illuminate\Contracts\Config\Repository');
+
+        if ($this->app->runningInConsole()) {
+            $this->publishMigration();
+            $this->publishConfig();
+            $this->publishSparkResources();
+        }
+
         $this->listeners = collect($this->config->get('captain_hook.listeners', []))->values();
         $this->registerEventListeners();
         $this->registerRoutes();
     }
 
     /**
-     * Register the service provider.
+     * Register any application services.
      *
      * @return void
      */
@@ -126,7 +132,7 @@ class CaptainHookServiceProvider extends ServiceProvider
     protected function registerEventListeners()
     {
         foreach ($this->listeners as $eventName) {
-            $this->app['events']->listen($eventName, [$this, 'handleEvent']);
+            $this->app['events']->listen($eventName . '*', [$this, 'handleEvent']);
         }
     }
 
@@ -154,7 +160,7 @@ class CaptainHookServiceProvider extends ServiceProvider
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function getWebhooks()
+    public function getWebhooks(): Collection
     {
         // Check if migration ran
         if (Schema::hasTable((new Webhook)->getTable())) {
@@ -201,11 +207,11 @@ class CaptainHookServiceProvider extends ServiceProvider
     /**
      * Event listener.
      *
+     * @param $eventName
      * @param $eventData
      */
-    public function handleEvent($eventData)
+    public function handleEvent($eventName, $eventData)
     {
-        $eventName = Event::firing();
         $webhooks = $this->getWebhooks()->where('event', $eventName);
         $webhooks = $webhooks->filter($this->config->get('captain_hook.filter', null));
 
@@ -217,19 +223,19 @@ class CaptainHookServiceProvider extends ServiceProvider
     /**
      * Register the artisan commands.
      */
-    protected function registerCommands()
+    protected function registerCommands(): void
     {
         $this->commands(
             ListWebhooks::class,
             AddWebhook::class,
-            DeleteWebhook::class
+            DeleteWebhook::class,
         );
     }
 
     /**
      * Register predefined routes used for Spark.
      */
-    protected function registerRoutes()
+    protected function registerRoutes(): void
     {
         if (class_exists('Laravel\Spark\Providers\AppServiceProvider')) {
             include __DIR__.'/../../routes.php';

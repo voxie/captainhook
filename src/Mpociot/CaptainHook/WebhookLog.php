@@ -2,17 +2,24 @@
 
 namespace Mpociot\CaptainHook;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * This file is part of CaptainHook arrrrr.
  *
  * @license MIT
  */
-class WebhookLog extends Eloquent
+class WebhookLog extends Model
 {
     /**
-     * Make the fields fillable.
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'webhook_logs';
+
+    /**
+     * The attributes that are mass assignable.
      *
      * @var array
      */
