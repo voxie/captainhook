@@ -24,11 +24,13 @@ class WebhookEventsController extends Controller
      */
     public function all(Request $request)
     {
-        return collect(config('captain_hook.listeners', []))->transform(function ($key, $value) {
-            return [
-                'name' => $value,
-                'event' => $key,
-            ];
-        })->values();
+        return collect(config('captain_hook.listeners', []))
+            ->transform(function ($key, $value) {
+                return [
+                    'name'  => $value,
+                    'event' => $key,
+                ];
+            })
+            ->values();
     }
 }
