@@ -93,10 +93,12 @@ class TriggerWebhooksJob implements ShouldQueue
                     $webhook->logs()->count() >= $config->get('captain_hook.log.storage_quantity')) {
                     $webhook->logs()->orderBy('updated_at', 'asc')->first()->delete();
                 }
+
                 $log = new WebhookLog([
                     'webhook_id' => $webhook['id'],
                     'url'        => $webhook['url'],
                 ]);
+
                 $middleware = Middleware::tap(function (RequestInterface $request, $options) use ($log) {
                     $log->payload_format = isset($request->getHeader('Content-Type')[0]) ? $request->getHeader('Content-Type')[0] : null;
                     $log->payload = $request->getBody()->getContents();
@@ -105,7 +107,6 @@ class TriggerWebhooksJob implements ShouldQueue
                         $log->status = $response->getStatusCode();
                         $log->response = $response->getBody()->getContents();
                         $log->response_format = $log->payload_format = isset($response->getHeader('Content-Type')[0]) ? $response->getHeader('Content-Type')[0] : null;
-
                         $log->save();
 
                         // Retry this job if the webhook response didn't give us a HTTP 200 OK
@@ -119,16 +120,16 @@ class TriggerWebhooksJob implements ShouldQueue
 
                 $client->post($webhook['url'], [
                     'exceptions' => false,
-                    'body' => $transformer($this->eventData, $webhook),
-                    'verify' => false,
-                    'handler' => $middleware($client->getConfig('handler')),
+                    'body'       => $transformer($this->eventData, $webhook),
+                    'verify'     => false,
+                    'handler'    => $middleware($client->getConfig('handler')),
                 ]);
             } else {
                 $client->post($webhook['url'], [
                     'exceptions' => false,
-                    'body' => $transformer($this->eventData, $webhook),
-                    'verify' => false,
-                    'timeout' => 10,
+                    'body'       => $transformer($this->eventData, $webhook),
+                    'verify'     => false,
+                    'timeout'    => 10,
                 ]);
             }
         }
