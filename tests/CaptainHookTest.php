@@ -49,13 +49,6 @@ class CaptainHookTest extends TestCase
         });
     }
 
-    protected function mockConfig($m, $configOption, $return)
-    {
-        return $m->shouldReceive('get')
-            ->with($configOption)
-            ->andReturn($return);
-    }
-
     public function testEloquentEventListenerGetCalled()
     {
         $provider = $this->app->getProvider('Mpociot\\CaptainHook\\CaptainHookServiceProvider');

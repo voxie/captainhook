@@ -57,4 +57,11 @@ class TestCase extends Orchestra
             '--path'     => realpath(__DIR__.'/../src/database'),
         ]);
     }
+
+    protected function mockConfig($m, $configOption, $return)
+    {
+        return $m->shouldReceive('get')
+            ->with($configOption)
+            ->andReturn($return);
+    }
 }

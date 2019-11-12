@@ -47,13 +47,6 @@ class LogTest extends TestCase
         });
     }
 
-    protected function mockConfig($m, $configOption, $return)
-    {
-        return $m->shouldReceive('get')
-            ->with($configOption)
-            ->andReturn($return);
-    }
-
     public function testItDoesNotLogTriggeredWebhooks()
     {
         $this->app['config']->set('captain_hook.log.active', false);
