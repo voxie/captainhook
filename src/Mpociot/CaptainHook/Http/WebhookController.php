@@ -17,6 +17,7 @@ class WebhookController extends Controller
      */
     public function __construct()
     {
+        //
     }
 
     /**
@@ -42,9 +43,9 @@ class WebhookController extends Controller
     public function store(CreateWebhookRequest $request)
     {
         $hook = Webhook::create([
-            'url' => $request->url,
+            'url'       => $request->url,
             'tenant_id' => $this->getTenantId($request),
-            'event' => $request->event,
+            'event'     => $request->event,
         ]);
 
         return response()->json($hook);
