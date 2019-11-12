@@ -4,6 +4,8 @@ namespace Mpociot\CaptainHook\Tests;
 
 use Mockery as m;
 use Mpociot\CaptainHook\Webhook;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
 
 class LogTest extends TestCase
 {
@@ -16,7 +18,7 @@ class LogTest extends TestCase
     {
         parent::tearDown();
 
-        \Cache::forget(Webhook::CACHE_KEY);
+        Cache::forget(Webhook::CACHE_KEY);
         m::close();
     }
 
@@ -37,7 +39,7 @@ class LogTest extends TestCase
     {
         parent::setUpDatabase();
 
-        \Schema::create('log_test_models', function ($table) {
+        Schema::create('log_test_models', function ($table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();

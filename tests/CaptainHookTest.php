@@ -4,6 +4,8 @@ namespace Mpociot\CaptainHook\Tests;
 
 use Mockery as m;
 use Mpociot\CaptainHook\Webhook;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Queue\SerializesModels;
 
 class CaptainHookTest extends TestCase
@@ -17,7 +19,7 @@ class CaptainHookTest extends TestCase
     {
         parent::tearDown();
 
-        \Cache::forget(Webhook::CACHE_KEY);
+        Cache::forget(Webhook::CACHE_KEY);
         m::close();
     }
 
@@ -38,7 +40,7 @@ class CaptainHookTest extends TestCase
     {
         parent::setUpDatabase();
 
-        \Schema::create('test_models', function ($table) {
+        Schema::create('test_models', function ($table) {
             $table->increments('id');
             $table->string('name');
             $table->timestamps();
@@ -281,7 +283,6 @@ class CaptainHookTest extends TestCase
 
         $this->setExpectedException(\ReflectionException::class, 'Class IDontExist does not exist');
 
-        // Trigger eloquent event
         \Event::fire(new TestEvent($model));
     }
 
