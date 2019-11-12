@@ -12,7 +12,7 @@ In order to install Captainhook into your Spark application:
 
 **2. Add the javascript components to your bootstrap.js file**
 
-Add `require('./captainhook/webhooks.js');` to your `resources/assets/js/components/bootstrap.js` file.
+Add `require('./captainhook/webhooks.js');` to your `resources/js/components/bootstrap.js` file.
 
 **3. Compile the Javascript components**
 
