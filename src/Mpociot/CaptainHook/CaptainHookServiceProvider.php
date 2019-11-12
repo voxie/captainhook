@@ -4,6 +4,7 @@ namespace Mpociot\CaptainHook;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -212,6 +213,8 @@ class CaptainHookServiceProvider extends ServiceProvider
      */
     public function handleEvent($eventName, $eventData)
     {
+        if (Str::contains($eventName, 'Mpociot\\CaptainHook\\Webhook')) return;
+
         $webhooks = $this->getWebhooks()->where('event', $eventName);
         $webhooks = $webhooks->filter($this->config->get('captain_hook.filter', null));
 
