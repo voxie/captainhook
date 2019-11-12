@@ -36,8 +36,9 @@ class TriggerWebhooksJob implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param array|\Illuminate\Support\Collection $webhooks
-     * @param mixed $eventData
+     * @param  array|\Illuminate\Support\Collection  $webhooks
+     * @param  mixed  $eventData
+     * @return void
      */
     public function __construct($webhooks, $eventData)
     {
@@ -47,8 +48,9 @@ class TriggerWebhooksJob implements ShouldQueue
 
     /**
      * Resolves a string or callable to a valid callable.
-     * @param string|callable $transformer
-     * @param $defaultMethodName
+     *
+     * @param  string|callable  $transformer
+     * @param  mixed  $defaultMethodName
      * @return callable
      */
     private function resolveCallable($transformer, $defaultMethodName)
