@@ -35,6 +35,11 @@ class LogTest extends TestCase
         $app['config']->set('captain_hook.log.active', true);
     }
 
+    /**
+     * Sets up the database schema.
+     *
+     * @return void
+     */
     protected function setUpDatabase()
     {
         parent::setUpDatabase();

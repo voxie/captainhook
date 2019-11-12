@@ -49,6 +49,11 @@ class TestCase extends Orchestra
         $app['config']->set('captain_hook.log.storage_quantity', 50);
     }
 
+    /**
+     * Sets up the database schema.
+     *
+     * @return void
+     */
     protected function setUpDatabase()
     {
         $this->loadMigrationsFrom([
