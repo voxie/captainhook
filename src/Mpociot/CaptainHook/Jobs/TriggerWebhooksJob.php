@@ -95,7 +95,7 @@ class TriggerWebhooksJob implements ShouldQueue
                 }
                 $log = new WebhookLog([
                     'webhook_id' => $webhook['id'],
-                    'url' => $webhook['url'],
+                    'url'        => $webhook['url'],
                 ]);
                 $middleware = Middleware::tap(function (RequestInterface $request, $options) use ($log) {
                     $log->payload_format = isset($request->getHeader('Content-Type')[0]) ? $request->getHeader('Content-Type')[0] : null;
