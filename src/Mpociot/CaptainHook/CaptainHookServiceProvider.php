@@ -191,6 +191,8 @@ class CaptainHookServiceProvider extends ServiceProvider
     }
 
     /**
+     * Get the webhooks from cache.
+     *
      * @return \Illuminate\Support\Collection
      */
     public function getWebhooks(): Collection
