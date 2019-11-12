@@ -109,6 +109,11 @@ class CaptainHookServiceProvider extends ServiceProvider
         ], 'config');
     }
 
+    /**
+     * Publish Spark resources.
+     *
+     * @return void
+     */
     protected function publishSparkResources()
     {
         $this->loadViewsFrom(__DIR__.'/../../resources/views/', 'captainhook');
@@ -121,6 +126,8 @@ class CaptainHookServiceProvider extends ServiceProvider
 
     /**
      * Register all active event listeners.
+     *
+     * @return void
      */
     protected function registerEventListeners()
     {
