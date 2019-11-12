@@ -38,9 +38,9 @@ class Webhook extends Model
     const CACHE_KEY = 'mpociot.captainhook.hooks';
 
     /**
-     * Boot the model.
-     *
-     * Whenever a new Webhook get's created the cache gets cleared.
+     * Register 'created', 'updated', and 'deleted' event handlers
+     * that will take care of clearing the cache whenever a webhook
+     * model instance is changed.
      *
      * @return void
      */

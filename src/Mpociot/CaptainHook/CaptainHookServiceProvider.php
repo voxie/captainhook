@@ -53,7 +53,9 @@ class CaptainHookServiceProvider extends ServiceProvider
     protected $config;
 
     /**
-     * Bootstrap.
+     * Bootstrap any application services.
+     *
+     * @return void
      */
     public function boot()
     {
