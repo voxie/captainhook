@@ -177,7 +177,10 @@ class CaptainHookServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param array $webhooks
+     * Set the webhooks to be cached.
+     *
+     * @param  array  $webhooks
+     * @return void
      */
     public function setWebhooks($webhooks)
     {
