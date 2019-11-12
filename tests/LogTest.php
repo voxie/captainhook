@@ -12,8 +12,10 @@ class LogTest extends TestCase
      *
      * @return void
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
+        parent::tearDown();
+
         \Cache::forget(Webhook::CACHE_KEY);
         m::close();
     }
