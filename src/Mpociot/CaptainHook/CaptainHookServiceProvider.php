@@ -140,7 +140,7 @@ class CaptainHookServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register predefined routes used for Spark.
+     * Register routes used for Spark.
      *
      * @return void
      */
