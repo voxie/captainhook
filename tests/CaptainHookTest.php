@@ -91,13 +91,11 @@ class CaptainHookTest extends TestCase
     public function testCustomEventListener()
     {
         $provider = $this->app->getProvider('Mpociot\\CaptainHook\\CaptainHookServiceProvider');
-        $provider->setListeners([
-            'TestEvent',
-        ]);
+        $provider->setListeners(['TestEvent']);
         $provider->setWebhooks([
             [
                 'event' => 'TestEvent',
-                'url' => 'http://foo.bar/hook',
+                'url'   => 'http://foo.bar/hook',
             ],
         ]);
 
@@ -128,7 +126,7 @@ class CaptainHookTest extends TestCase
         $provider->setWebhooks([
             [
                 'event' => 'TestEvent',
-                'url' => 'http://foo.bar/hook',
+                'url'   => 'http://foo.bar/hook',
             ],
         ]);
         $this->app['config']->set('captain_hook.transformer', function ($eventData) {
@@ -161,9 +159,9 @@ class CaptainHookTest extends TestCase
         ]);
         $provider->setWebhooks([
             [
-                'event' => 'TestEvent',
+                'event'       => 'TestEvent',
                 'custom_data' => 'Custom Webhook Event Data',
-                'url' => 'http://foo.bar/hook',
+                'url'         => 'http://foo.bar/hook',
             ],
         ]);
         $this->app['config']->set('captain_hook.transformer', function ($eventData, $webhook) {
@@ -197,7 +195,7 @@ class CaptainHookTest extends TestCase
         $provider->setWebhooks([
             [
                 'event' => 'TestEvent',
-                'url' => 'http://foo.bar/hook',
+                'url'   => 'http://foo.bar/hook',
             ],
         ]);
         $this->app['config']->set('captain_hook.transformer', 'TestTransformer@transform');
@@ -229,7 +227,7 @@ class CaptainHookTest extends TestCase
         $provider->setWebhooks([
             [
                 'event' => 'TestEvent',
-                'url' => 'http://foo.bar/hook',
+                'url'   => 'http://foo.bar/hook',
             ],
         ]);
         $this->app['config']->set('captain_hook.transformer', 'TestTransformer');
@@ -255,13 +253,11 @@ class CaptainHookTest extends TestCase
     public function testInvalidTransformerThrowsException()
     {
         $provider = $this->app->getProvider('Mpociot\\CaptainHook\\CaptainHookServiceProvider');
-        $provider->setListeners([
-            'TestEvent',
-        ]);
+        $provider->setListeners(['TestEvent']);
         $provider->setWebhooks([
             [
                 'event' => 'TestEvent',
-                'url' => 'http://foo.bar/hook',
+                'url'   => 'http://foo.bar/hook',
             ],
         ]);
         $this->app['config']->set('captain_hook.transformer', 'IDontExist');
