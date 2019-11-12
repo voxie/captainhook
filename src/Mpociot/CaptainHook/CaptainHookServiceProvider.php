@@ -126,6 +126,32 @@ class CaptainHookServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register the artisan commands.
+     *
+     * @return void
+     */
+    protected function registerCommands(): void
+    {
+        $this->commands(
+            ListWebhooks::class,
+            AddWebhook::class,
+            DeleteWebhook::class,
+        );
+    }
+
+    /**
+     * Register predefined routes used for Spark.
+     *
+     * @return void
+     */
+    protected function registerRoutes(): void
+    {
+        if (class_exists('Laravel\Spark\Providers\AppServiceProvider')) {
+            include __DIR__.'/../../routes.php';
+        }
+    }
+
+    /**
      * Register all active event listeners.
      *
      * @return void
@@ -221,32 +247,6 @@ class CaptainHookServiceProvider extends ServiceProvider
 
         if (! $webhooks->isEmpty()) {
             $this->dispatch(new TriggerWebhooksJob($webhooks, $eventData));
-        }
-    }
-
-    /**
-     * Register the artisan commands.
-     *
-     * @return void
-     */
-    protected function registerCommands(): void
-    {
-        $this->commands(
-            ListWebhooks::class,
-            AddWebhook::class,
-            DeleteWebhook::class,
-        );
-    }
-
-    /**
-     * Register predefined routes used for Spark.
-     *
-     * @return void
-     */
-    protected function registerRoutes(): void
-    {
-        if (class_exists('Laravel\Spark\Providers\AppServiceProvider')) {
-            include __DIR__.'/../../routes.php';
         }
     }
 }
