@@ -18,7 +18,7 @@ class CaptainHookTest extends Orchestra\Testbench\TestCase
             ->andReturn($return);
     }
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -28,7 +28,7 @@ class CaptainHookTest extends Orchestra\Testbench\TestCase
         ]);
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         \Cache::forget(Webhook::CACHE_KEY);
         m::close();
