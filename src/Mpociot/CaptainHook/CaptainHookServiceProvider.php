@@ -86,37 +86,27 @@ class CaptainHookServiceProvider extends ServiceProvider
     }
 
     /**
-     * Publish migration.
+     * Publish migrations.
+     *
+     * @return void
      */
     protected function publishMigration()
     {
-        $migrations = [
-            __DIR__.'/../../database/2015_10_29_000000_captain_hook_setup_table.php' =>
-                database_path('/migrations/2015_10_29_000000_captain_hook_setup_table.php'),
-            __DIR__.'/../../database/2015_10_29_000001_captain_hook_setup_logs_table.php' =>
-                database_path('/migrations/2015_10_29_000001_captain_hook_setup_logs_table.php'),
-        ];
-
-        // To be backwards compatible
-        foreach ($migrations as $migration => $toPath) {
-            preg_match('/_captain_hook_.*\.php/', $migration, $match);
-            $published_migration = glob(database_path('/migrations/*'.$match[0]));
-            if (count($published_migration) !== 0) {
-                unset($migrations[$migration]);
-            }
-        }
-
-        $this->publishes($migrations, 'migrations');
+        $this->publishes([
+            __DIR__.'/../../database/' => database_path('migrations'),
+        ], 'migrations');
     }
 
     /**
      * Publish configuration file.
+     *
+     * @return void
      */
     protected function publishConfig()
     {
         $this->publishes([
             __DIR__.'/../../config/config.php' => config_path('captain_hook.php'),
-        ]);
+        ], 'config');
     }
 
     protected function publishSparkResources()
