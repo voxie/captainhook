@@ -67,6 +67,7 @@ class CaptainHookServiceProvider extends ServiceProvider
             $this->publishMigration();
             $this->publishConfig();
             $this->publishSparkResources();
+            $this->registerCommands();
         }
 
         $this->listeners = collect($this->config->get('captain_hook.listeners', []))->values();
@@ -81,7 +82,7 @@ class CaptainHookServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerCommands();
+        //
     }
 
     /**
