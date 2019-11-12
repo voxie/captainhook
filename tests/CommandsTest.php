@@ -2,7 +2,7 @@
 
 namespace Mpociot\CaptainHook\Tests;
 
-use Mockery as m;
+use Mockery;
 use Mpociot\CaptainHook\Commands\AddWebhook;
 use Mpociot\CaptainHook\Commands\DeleteWebhook;
 use Mpociot\CaptainHook\Webhook;
@@ -22,11 +22,11 @@ class CommandsTest extends TestCase
 
     public function testCannotAddWebhookWithoutName()
     {
-        $cmd = m::mock(AddWebhook::class . '[argument,error]');
+        $cmd = Mockery::mock(AddWebhook::class . '[argument,error]');
 
         $cmd->shouldReceive('error')
             ->once()
-            ->with(m::type('string'));
+            ->with(Mockery::type('string'));
 
         $cmd->shouldReceive('argument')
             ->twice();
@@ -42,7 +42,7 @@ class CommandsTest extends TestCase
 
     public function testCanAddWebhook()
     {
-        $cmd = m::mock(AddWebhook::class . '[argument,info]');
+        $cmd = Mockery::mock(AddWebhook::class . '[argument,info]');
 
         $cmd->shouldReceive('argument')
             ->with('url')
@@ -53,7 +53,7 @@ class CommandsTest extends TestCase
             ->andReturn('TestModelTestModel');
 
         $cmd->shouldReceive('info')
-            ->with(m::type('string'));
+            ->with(Mockery::type('string'));
 
         $cmd->handle();
 
@@ -69,14 +69,14 @@ class CommandsTest extends TestCase
             'url'   => 'http://foo.baz',
             'event' => 'DeleteWebhook',
         ]);
-        $cmd = m::mock(DeleteWebhook::class . '[argument,error]');
+        $cmd = Mockery::mock(DeleteWebhook::class . '[argument,error]');
 
         $cmd->shouldReceive('argument')
             ->with('id')
             ->andReturn(null);
 
         $cmd->shouldReceive('error')
-            ->with(m::type('string'));
+            ->with(Mockery::type('string'));
 
         $cmd->handle();
 
@@ -92,14 +92,14 @@ class CommandsTest extends TestCase
             'url'   => 'http://foo.baz',
             'event' => 'DeleteWebhook',
         ]);
-        $cmd = m::mock(DeleteWebhook::class . '[argument,info]');
+        $cmd = Mockery::mock(DeleteWebhook::class . '[argument,info]');
 
         $cmd->shouldReceive('argument')
             ->with('id')
             ->andReturn($webhook->getKey());
 
         $cmd->shouldReceive('info')
-            ->with(m::type('string'));
+            ->with(Mockery::type('string'));
 
         $cmd->handle();
 
