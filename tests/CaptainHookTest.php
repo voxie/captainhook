@@ -67,7 +67,7 @@ class CaptainHookTest extends TestCase
             ]),
         ]);
 
-        $client = m::mock('GuzzleHttp\\Client');
+        $client = m::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->twice();
@@ -78,7 +78,7 @@ class CaptainHookTest extends TestCase
         $client->shouldReceive('post')
             ->with('http://foo.bar/hook', m::any());
 
-        $this->app->instance(GuzzleHttp\Client::class, $client);
+        $this->app->instance(\GuzzleHttp\Client::class, $client);
 
         $provider->setClient($client);
 
@@ -105,14 +105,14 @@ class CaptainHookTest extends TestCase
 
         // We need to fetch a new instance of the model - just like __wakeup would do
         $checkModel = TestModel::find($model->getKey());
-        $client = m::mock('GuzzleHttp\\Client');
+        $client = m::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once()
             ->with('http://foo.bar/hook', ['body' => json_encode(['testModel' => $checkModel]), 'verify' => false, 'timeout' => 10, 'exceptions' => false]);
 
         $provider->setClient($client);
-        $this->app->instance(GuzzleHttp\Client::class, $client);
+        $this->app->instance(\GuzzleHttp\Client::class, $client);
 
         Event::fire(new TestEvent($model));
     }
@@ -139,14 +139,14 @@ class CaptainHookTest extends TestCase
 
         // We need to fetch a new instance of the model - just like __wakeup would do
         $checkModel = TestModel::find($model->getKey());
-        $client = m::mock('GuzzleHttp\\Client');
+        $client = m::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once()
             ->with('http://foo.bar/hook', ['body' => 'this is just a test.', 'verify' => false, 'timeout' => 10, 'exceptions' => false]);
 
         $provider->setClient($client);
-        $this->app->instance(GuzzleHttp\Client::class, $client);
+        $this->app->instance(\GuzzleHttp\Client::class, $client);
 
         Event::fire(new TestEvent($model));
     }
@@ -174,14 +174,14 @@ class CaptainHookTest extends TestCase
 
         // We need to fetch a new instance of the model - just like __wakeup would do
         $checkModel = TestModel::find($model->getKey());
-        $client = m::mock('GuzzleHttp\\Client');
+        $client = m::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once()
             ->with('http://foo.bar/hook', ['body' => 'Custom Webhook Event Data', 'verify' => false, 'timeout' => 10, 'exceptions' => false]);
 
         $provider->setClient($client);
-        $this->app->instance(GuzzleHttp\Client::class, $client);
+        $this->app->instance(\GuzzleHttp\Client::class, $client);
 
         Event::fire(new TestEvent($model));
     }
@@ -206,14 +206,14 @@ class CaptainHookTest extends TestCase
 
         // We need to fetch a new instance of the model - just like __wakeup would do
         $checkModel = TestModel::find($model->getKey());
-        $client = m::mock('GuzzleHttp\\Client');
+        $client = m::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once()
             ->with('http://foo.bar/hook', ['body' => 'TestTransformer called - '.$checkModel->name.' - '.$checkModel->id, 'verify' => false, 'timeout' => 10, 'exceptions' => false]);
 
         $provider->setClient($client);
-        $this->app->instance(GuzzleHttp\Client::class, $client);
+        $this->app->instance(\GuzzleHttp\Client::class, $client);
 
         Event::fire(new TestEvent($model));
     }
@@ -238,14 +238,14 @@ class CaptainHookTest extends TestCase
 
         // We need to fetch a new instance of the model - just like __wakeup would do
         $checkModel = TestModel::find($model->getKey());
-        $client = m::mock('GuzzleHttp\\Client');
+        $client = m::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once()
             ->with('http://foo.bar/hook', ['body' => 'TestTransformer called - '.$checkModel->name.' - '.$checkModel->id, 'verify' => false, 'timeout' => 10, 'exceptions' => false]);
 
         $provider->setClient($client);
-        $this->app->instance(GuzzleHttp\Client::class, $client);
+        $this->app->instance(\GuzzleHttp\Client::class, $client);
 
         Event::fire(new TestEvent($model));
     }
@@ -307,7 +307,7 @@ class CaptainHookTest extends TestCase
         $webhook->event = 'eloquent.deleted: TestModel';
         $webhook->save();
 
-        $client = m::mock('GuzzleHttp\\Client');
+        $client = m::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->twice();
@@ -318,7 +318,7 @@ class CaptainHookTest extends TestCase
         $client->shouldReceive('post')
             ->with('http://test.bar/saved', m::any());
 
-        $this->app->instance(GuzzleHttp\Client::class, $client);
+        $this->app->instance(\GuzzleHttp\Client::class, $client);
 
         $provider = $this->app->getProvider('Mpociot\\CaptainHook\\CaptainHookServiceProvider');
         $provider->setClient($client);
@@ -348,7 +348,7 @@ class CaptainHookTest extends TestCase
         $webhook->event = 'eloquent.saved: TestModel';
         $webhook->save();
 
-        $client = m::mock('GuzzleHttp\\Client');
+        $client = m::mock(\GuzzleHttp\Client::class);
 
         $client->shouldReceive('post')
             ->once();
@@ -356,7 +356,7 @@ class CaptainHookTest extends TestCase
         $client->shouldReceive('post')
             ->with('http://test.bar/saved', m::any());
 
-        $this->app->instance(GuzzleHttp\Client::class, $client);
+        $this->app->instance(\GuzzleHttp\Client::class, $client);
 
         $config = m::mock('stdClass');
         $config->shouldReceive('get')
