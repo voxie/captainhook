@@ -2,7 +2,7 @@
 
 namespace Mpociot\CaptainHook\Tests;
 
-use Mockery as m;
+use Mockery;
 use Mpociot\CaptainHook\Webhook;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Schema;
@@ -19,7 +19,7 @@ class LogTest extends TestCase
         parent::tearDown();
 
         Cache::forget(Webhook::CACHE_KEY);
-        m::close();
+        Mockery::close();
     }
 
     /**
@@ -272,7 +272,7 @@ class LogTest extends TestCase
             ], '{"data":"First data"}'),
         ]);
 
-        $mock = \Mockery::mock('stdClass');
+        $mock = Mockery::mock('stdClass');
         $mock->shouldReceive('callback')
             ->once()
             ->withArgs([
