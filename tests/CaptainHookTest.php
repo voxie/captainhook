@@ -31,14 +31,7 @@ class CaptainHookTest extends TestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        // Setup default database to use sqlite :memory:
-        $app['config']->set('captain_hook.transformer', function ($eventData, $webhook) {
-            return json_encode($eventData);
-        });
-        $app['config']->set('captain_hook.listeners', ['eloquent.*']);
         $app['config']->set('captain_hook.log.active', false);
-        $app['config']->set('captain_hook.log.storage_quantity', 50);
-        $app['config']->set('database.default', 'testing');
     }
 
     protected function setUpDatabase()

@@ -39,6 +39,14 @@ class TestCase extends Orchestra
             'database' => ':memory:',
             'prefix'   => '',
         ]);
+
+        $app['config']->set('queue.driver', 'sync');
+
+        $app['config']->set('captain_hook.transformer', function ($eventData, $webhook) {
+            return json_encode($eventData);
+        });
+        $app['config']->set('captain_hook.listeners', ['eloquent.*']);
+        $app['config']->set('captain_hook.log.storage_quantity', 50);
     }
 
     protected function setUpDatabase()

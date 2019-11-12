@@ -30,15 +30,7 @@ class LogTest extends TestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        // Setup default database to use sqlite :memory:
-        $app['config']->set('captain_hook.transformer', function ($eventData) {
-            return json_encode($eventData);
-        });
-        $app['config']->set('captain_hook.listeners', ['eloquent.*']);
         $app['config']->set('captain_hook.log.active', true);
-        $app['config']->set('captain_hook.log.storage_quantity', 50);
-        $app['config']->set('database.default', 'testing');
-        $app['config']->set('queue.driver', 'sync');
     }
 
     protected function setUpDatabase()

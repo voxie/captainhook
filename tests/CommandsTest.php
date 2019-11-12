@@ -9,6 +9,17 @@ use Mpociot\CaptainHook\Webhook;
 
 class CommandsTest extends TestCase
 {
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        //
+    }
+
     public function testCannotAddWebhookWithoutName()
     {
         $cmd = m::mock(AddWebhook::class . '[argument,error]');
