@@ -52,7 +52,7 @@ class TestCase extends Orchestra
     protected function setUpDatabase()
     {
         $this->artisan('migrate', [
-            '--database' => 'testing',
+            '--database' => 'testbench',
             '--realpath' => realpath(__DIR__.'/../src/database'),
         ]);
     }
