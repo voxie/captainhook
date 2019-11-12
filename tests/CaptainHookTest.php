@@ -39,6 +39,11 @@ class CaptainHookTest extends TestCase
         $app['config']->set('captain_hook.log.active', false);
         $app['config']->set('captain_hook.log.storage_quantity', 50);
         $app['config']->set('database.default', 'testing');
+    }
+
+    protected function setUpDatabase()
+    {
+        parent::setUpDatabase();
 
         \Schema::create('test_models', function ($table) {
             $table->increments('id');

@@ -39,6 +39,11 @@ class LogTest extends TestCase
         $app['config']->set('captain_hook.log.storage_quantity', 50);
         $app['config']->set('database.default', 'testing');
         $app['config']->set('queue.driver', 'sync');
+    }
+
+    protected function setUpDatabase()
+    {
+        parent::setUpDatabase();
 
         \Schema::create('log_test_models', function ($table) {
             $table->increments('id');
