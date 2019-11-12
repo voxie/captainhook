@@ -58,8 +58,8 @@ class CaptainHookServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->client = new Client();
-        $this->cache = $this->app('Illuminate\Contracts\Cache\Repository');
-        $this->config = $this->app('Illuminate\Contracts\Config\Repository');
+        $this->cache = $this->app->make('Illuminate\Contracts\Cache\Repository');
+        $this->config = $this->app->make('Illuminate\Contracts\Config\Repository');
 
         if ($this->app->runningInConsole()) {
             $this->publishMigration();
