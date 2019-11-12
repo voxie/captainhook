@@ -222,6 +222,8 @@ class CaptainHookServiceProvider extends ServiceProvider
 
     /**
      * Register the artisan commands.
+     *
+     * @return void
      */
     protected function registerCommands(): void
     {
