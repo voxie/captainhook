@@ -164,7 +164,10 @@ class CaptainHookServiceProvider extends ServiceProvider
     }
 
     /**
-     * @param array $listeners
+     * Set the event listeners to be registered.
+     *
+     * @param  array  $listeners
+     * @return void
      */
     public function setListeners($listeners)
     {
