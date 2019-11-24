@@ -85,10 +85,10 @@ Vue.component('captainhook-webhooks', {
         updateWebhook() {
             Spark.put(`/settings/api/webhook/${this.updatingWebhook.id}`, this.updateWebhookForm)
                 .then(response => {
-                this.$dispatch('updateWebhooks');
+                    this.$dispatch('updateWebhooks');
 
-            $('#modal-update-webhook').modal('hide');
-        })
+                    $('#modal-update-webhook').modal('hide');
+                });
         },
 
         /**
@@ -107,10 +107,10 @@ Vue.component('captainhook-webhooks', {
         deleteWebhook() {
             Spark.delete(`/settings/api/webhook/${this.deletingWebhook.id}`, this.deleteWebhookForm)
                 .then(() => {
-                this.$dispatch('updateWebhooks');
+                    this.$dispatch('updateWebhooks');
 
-            $('#modal-delete-webhook').modal('hide');
-        });
+                    $('#modal-delete-webhook').modal('hide');
+                });
         }
     }
 });
