@@ -20,7 +20,7 @@
                 </div>
 
                 <!-- Webhook Event -->
-                <div class="form-group" :class="{'has-error': form.errors.has('events')}" v-if="availableEvents.length > 0">
+                <div class="form-group" :class="{'has-error': form.errors.has('event')}" v-if="availableEvents.length > 0">
                     <label class="col-md-4 control-label">Select Event</label>
 
                     <div class="col-md-6">
