@@ -67,12 +67,12 @@ class CaptainHookServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishMigration();
             $this->publishConfig();
-            $this->publishSparkResources();
             $this->registerCommands();
         }
 
         $this->listeners = collect($this->config->get('captain_hook.listeners', []))->values();
         $this->registerEventListeners();
+        $this->publishSparkResources();
         $this->registerRoutes();
     }
 
