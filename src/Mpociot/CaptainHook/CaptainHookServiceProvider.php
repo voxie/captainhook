@@ -135,7 +135,7 @@ class CaptainHookServiceProvider extends ServiceProvider
         $this->commands(
             ListWebhooks::class,
             AddWebhook::class,
-            DeleteWebhook::class,
+            DeleteWebhook::class
         );
     }
 
