@@ -24,13 +24,13 @@
         "php": "^7.3",
         "ext-json": "*",
         "guzzlehttp/guzzle": "^6.3",
-        "illuminate/bus": "^5.8|^6.0",
-        "illuminate/queue": "^5.8|^6.0",
-        "illuminate/support": "^5.8|^6.0"
+        "illuminate/bus": "^5.8|^6.0|^7.0",
+        "illuminate/queue": "^5.8|^6.0|^7.0",
+        "illuminate/support": "^5.8|^6.0|^7.0"
     },
     "require-dev": {
-        "illuminate/database": "^5.8|^6.0",
-        "illuminate/events": "^5.8|^6.0",
+        "illuminate/database": "^5.8|^6.0|^7.0",
+        "illuminate/events": "^5.8|^6.0|^7.0",
         "mockery/mockery": "^1.2",
         "orchestra/testbench": "^3.8|^4.0",
         "phpunit/phpunit": "^8.2"
